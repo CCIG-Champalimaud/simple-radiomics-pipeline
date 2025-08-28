@@ -9,7 +9,7 @@ If co-registration/resampling of multimodal imaging is necessary please consult 
 *Requires [`uv`](https://docs.astral.sh/uv/)*
 
 ```bash
-uv run python extract_features.py \
+uv run python -m src.extract_features \
     --input_folder /path/to/input/folder \
     --mask_folder /path/to/mask/folder \
     --identifier_pattern "(.+)" \
@@ -19,3 +19,5 @@ uv run python extract_features.py \
     --output_path /path/to/output.csv \
     --n_jobs 8
 ```
+
+In `pipeline.sh`, a short script is provided to extract features for the GliomAI dataset.
