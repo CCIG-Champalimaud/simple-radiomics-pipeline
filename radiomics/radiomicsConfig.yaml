@@ -35,7 +35,8 @@ featureClass:
   gldm:
 
 setting:
-  # we perform the normalization prior to any calculation
+  # we perform the normalization prior to any calculation so we 
+  # can skip normalization and voxel shifting and etc.
   normalize: false
   binWidth: 0.05
   label: 1
