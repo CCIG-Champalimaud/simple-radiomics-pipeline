@@ -24,7 +24,6 @@ def calculate_statistics(
                 "shape": image.GetSize(),
                 "spacing": image.GetSpacing(),
             }
-            print(f"{k} - {all_values[k]}")
 
     df = pd.DataFrame(all_values).T
 
