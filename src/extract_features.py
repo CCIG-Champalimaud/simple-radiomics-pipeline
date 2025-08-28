@@ -111,6 +111,7 @@ def extract_case(
             features["mask_label"] = label
             features["image_path"] = image_path
             features["mask_path"] = mask_path
+            features["label_sum"] = label_sum
             curr_features.append(features)
     return curr_features
 
