@@ -1,0 +1,42 @@
+imageType:
+  Original: {}
+  LoG:
+    sigma: [1.0, 3.0, 5.0]
+  Wavelet: {}
+
+featureClass:
+  shape:
+  firstorder:
+  glcm:  # disable SumAverage as it is confounded by volume
+    - 'Autocorrelation'
+    - 'JointAverage'
+    - 'ClusterProminence'
+    - 'ClusterShade'
+    - 'ClusterTendency'
+    - 'Contrast'
+    - 'Correlation'
+    - 'DifferenceAverage'
+    - 'DifferenceEntropy'
+    - 'DifferenceVariance'
+    - 'JointEnergy'
+    - 'JointEntropy'
+    - 'Imc1'
+    - 'Imc2'
+    - 'Idm'
+    - 'Idmn'
+    - 'Id'
+    - 'Idn'
+    - 'InverseVariance'
+    - 'MaximumProbability'
+    - 'SumEntropy'
+    - 'SumSquares'
+  glrlm:
+  glszm:
+  gldm:
+
+setting:
+  # we perform the normalization prior to any calculation
+  normalize: false
+  binWidth: 0.05
+  label: 1
+  force2D: false
