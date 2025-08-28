@@ -33,6 +33,21 @@ logger.addHandler(stream_handler)
 logger.addHandler(file_handler)
 
 
+def check_image_and_mask(image: sitk.Image, mask: sitk.Image) -> None:
+    assert (
+        image.GetSize() == mask.GetSize()
+    ), "Image and mask sizes do not match"
+    assert (
+        image.GetSpacing() == mask.GetSpacing()
+    ), "Image and mask spacings do not match"
+    assert (
+        image.GetDirection() == mask.GetDirection()
+    ), "Image and mask directions do not match"
+    assert (
+        image.GetOrigin() == mask.GetOrigin()
+    ), "Image and mask origins do not match"
+
+
 def get_image_dict(
     input_folder: Path, identifier_pattern: str, image_pattern: str
 ) -> dict[str, list[Path]]:
@@ -67,6 +82,7 @@ def extract_case(
     curr_features = []
     for mask_path in mask_paths:
         mask = sitk.ReadImage(mask_path)
+        check_image_and_mask(image, mask)
         lsf = sitk.LabelStatisticsImageFilter()
         lsf.Execute(mask, mask)
         labels = lsf.GetLabels()
