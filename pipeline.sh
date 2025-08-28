@@ -1,5 +1,5 @@
 ROOT_FOLDER=/mnt/big_disk/data/glioma
-OUTPUT_FOLDER=statistics
+OUTPUT_FOLDER=features
 N_JOBS=32
 
 for tp_id in preop postop
