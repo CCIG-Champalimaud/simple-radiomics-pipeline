@@ -102,6 +102,7 @@ def extract_case(
                 )
                 try:
                     features = feature_extractor.execute(image, mask, label)
+                    features["error"] = None
                 except Exception as e:
                     logger.error(
                         f"{identifier} - error calculating features with label {label}: {e}"
@@ -161,7 +162,7 @@ def extract_folder(
 
     df = pd.DataFrame(features_final)
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    df.to_csv(str(output_path))
+    df.to_csv(str(output_path), index=False)
 
 
 if __name__ == "__main__":
