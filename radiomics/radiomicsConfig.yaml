@@ -1,8 +1,5 @@
 imageType:
   Original: {}
-  LoG:
-    sigma: [1.0, 3.0, 5.0]
-  Wavelet: {}
 
 featureClass:
   shape:
@@ -38,6 +35,6 @@ setting:
   # we perform the normalization prior to any calculation so we 
   # can skip normalization and voxel shifting and etc.
   normalize: false
-  binWidth: 0.05
-  label: 1
+  # corresponds in practice to 50 bins across the whole image
+  binWidth: 0.02
   force2D: false
