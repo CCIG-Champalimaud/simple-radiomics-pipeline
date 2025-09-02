@@ -40,6 +40,9 @@ if __name__ == "__main__":
     assert len(args.input_csvs) == len(args.suffixes)
     for input_csv, suffix in zip(args.input_csvs, args.suffixes):
         df = pd.read_csv(input_csv).reset_index()
+        # drop index
+        if "index" in df.columns:
+            df = df.drop(columns=["index"])
         df.columns = [
             col if col in args.on else col + "." + suffix for col in df.columns
         ]
@@ -47,5 +50,7 @@ if __name__ == "__main__":
 
     out_df = dfs[0]
     for df in dfs[1:]:
-        out_df = pd.merge(out_df, df, on=args.on, how="outer")
+        out_df = pd.merge(out_df, df, on=args.on, how="outer").sort_values(
+            by=args.on
+        )
     out_df.to_csv(args.output_path, index=False)
