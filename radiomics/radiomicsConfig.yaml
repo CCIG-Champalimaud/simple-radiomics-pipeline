@@ -30,6 +30,7 @@ featureClass:
   glrlm:
   glszm:
   gldm:
+  ngtdm:
 
 setting:
   # we perform the normalization prior to any calculation so we 

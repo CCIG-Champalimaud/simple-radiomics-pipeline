@@ -1,6 +1,7 @@
 ROOT_FOLDER=/mnt/big_disk/data/glioma
 OUTPUT_FOLDER=output
 N_JOBS=32
+IMAGES="brain_t1c brain_t1n brain_t2w brain_t2f"
 
 for tp_id in preop postop
 do
@@ -11,7 +12,7 @@ do
         INPUT_FOLDER=$ROOT_FOLDER/gliomai_postoperative
         MASK_FOLDER=$ROOT_FOLDER/gliomai_postop_masks_290825
     fi
-    for image in brain_t1c brain_t1n brain_t2w brain_t2f
+    for image in $IMAGES
     do 
         out_path=$OUTPUT_FOLDER/statistics/$tp_id.$image.csv
         if [ -f $out_path ]; then
@@ -26,7 +27,7 @@ do
             --output_path $OUTPUT_FOLDER/statistics/$tp_id.$image.csv
     done
 
-    for image in brain_t1c brain_t1n brain_t2w brain_t2f
+    for image in $IMAGES
     do 
         out_path=$OUTPUT_FOLDER/features/$tp_id.$image.csv
         if [ -f $out_path ]; then
@@ -44,4 +45,10 @@ do
             --output_path $OUTPUT_FOLDER/features/$tp_id.$image.csv \
             --n_jobs $N_JOBS
     done
+
+    uv run python -m src.merge_datasets \
+        --input_csvs $(for image in $IMAGES; do echo $OUTPUT_FOLDER/features/$tp_id.$image.csv; done) \
+        --suffixes $IMAGES \
+        --on identifier mask_label mask_path \
+        --output_path $OUTPUT_FOLDER/features/$tp_id.csv
 done
