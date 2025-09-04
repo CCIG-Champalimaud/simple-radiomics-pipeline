@@ -33,18 +33,34 @@ if __name__ == "__main__":
         help="Output path.",
         required=True,
     )
+    parser.add_argument(
+        "--keep_from_first",
+        type=str,
+        nargs="+",
+        help="Keeps the values for this column only from the first dataframe",
+    )
 
     args = parser.parse_args()
 
+    keep_from_first = (
+        args.keep_from_first if args.keep_from_first is not None else []
+    )
+
     dfs = []
+    keep_col_name = args.on + keep_from_first
     assert len(args.input_csvs) == len(args.suffixes)
-    for input_csv, suffix in zip(args.input_csvs, args.suffixes):
+    for i, (input_csv, suffix) in enumerate(
+        zip(args.input_csvs, args.suffixes)
+    ):
         df = pd.read_csv(input_csv).reset_index()
         # drop index
         if "index" in df.columns:
             df = df.drop(columns=["index"])
+        if keep_from_first is not None and i > 0:
+            df = df.drop(columns=keep_from_first)
         df.columns = [
-            col if col in args.on else col + "." + suffix for col in df.columns
+            col if col in keep_col_name else col + "." + suffix
+            for col in df.columns
         ]
         dfs.append(df)
 

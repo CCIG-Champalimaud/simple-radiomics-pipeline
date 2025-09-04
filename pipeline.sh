@@ -50,5 +50,6 @@ do
         --input_csvs $(for image in $IMAGES; do echo $OUTPUT_FOLDER/features/$tp_id.$image.csv; done) \
         --suffixes $IMAGES \
         --on identifier mask_label mask_path \
+        --keep_from_first original_shape_Elongation original_shape_Flatness original_shape_LeastAxisLength original_shape_MajorAxisLength original_shape_Maximum2DDiameterColumn original_shape_Maximum2DDiameterRow original_shape_Maximum2DDiameterSlice original_shape_Maximum3DDiameter original_shape_MeshVolume original_shape_MinorAxisLength original_shape_Sphericity original_shape_SurfaceArea original_shape_SurfaceVolumeRatio original_shape_VoxelVolume \
         --output_path $OUTPUT_FOLDER/features/$tp_id.csv
 done
